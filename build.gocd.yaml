@@ -1,0 +1,28 @@
+#ci.gocd.yaml
+pipelines:
+  itzero-build: # definition of mypipe1 pipeline
+    group: itzero # note that the group name can contain only of alphanumeric & underscore characters
+    materials:
+      src: # this is the name of material, the name can contain only of alphanumeric & underscore characters
+        # keyword git says about type of material and url at once
+        git: https://github.com/Hippoom/itzero.git
+    stages: # list of stages in order
+      - build: # name of stage
+          jobs:
+            build: # name of the job
+              resources:
+               - jdk8
+              artifacts:
+               - build:
+                   source: build/version
+                   destination: build
+               - test:
+                   source: build/reports
+                   destination: build
+               - test:
+                   source: build/test-results
+                   destination: build
+              tabs:
+                jacoco: build/reports/jacoco/test/html/index.html
+              tasks:
+               - script: ./gradlew clean build publish
