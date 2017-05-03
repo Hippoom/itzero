@@ -3,7 +3,7 @@ apply plugin: 'maven-publish'
 publishing {
     repositories {
         maven {
-            url "http://localhost:8081/nexus/content/repositories/Candidates"
+            url "http://localhost:8081/repository/maven-releases/"
             credentials {
                 username "$System.env.NEXUS_CI_USER"
                 password "$System.env.NEXUS_CI_PASS"
