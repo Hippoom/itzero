@@ -27,6 +27,7 @@ pipelines:
                    source: build/test-results
                    destination: build
               tabs:
+                test: build/reports/tests/test/index.html
                 jacoco: build/reports/jacoco/test/html/index.html
               tasks:
                - script: ./gradlew clean build publish
