@@ -20,6 +20,8 @@ apply plugin: 'java'
 apply plugin: 'groovy'
 apply plugin: 'jacoco'
 
+apply from: 'gradle/git-hooks.gradle'
+apply from: 'gradle/checkstyle.gradle'
 apply from: 'gradle/build-version.gradle'
 apply from: 'gradle/maven-publish.gradle'
 
