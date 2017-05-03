@@ -5,8 +5,8 @@ publishing {
         maven {
             url "http://localhost:8081/nexus/content/repositories/Candidates"
             credentials {
-                username 'admin'
-                password 'admin123'
+                username "$System.env.NEXUS_CI_USER"
+                password "$System.env.NEXUS_CI_PASS"
             }
         }
     }
