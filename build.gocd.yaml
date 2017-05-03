@@ -1,4 +1,8 @@
 #ci.gocd.yaml
+environments:
+  build:
+    pipelines:
+      - itzero-build
 pipelines:
   itzero-build: # definition of mypipe1 pipeline
     group: itzero # note that the group name can contain only of alphanumeric & underscore characters
