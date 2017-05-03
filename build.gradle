@@ -20,6 +20,11 @@ apply plugin: 'java'
 apply plugin: 'groovy'
 apply plugin: 'jacoco'
 
+apply from: 'gradle/build-version.gradle'
+apply from: 'gradle/maven-publish.gradle'
+
+group = "spikes"
+
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
@@ -53,10 +58,6 @@ test {
     exclude '**/specs/*'
     exclude '**/*LearningTest*'
     exclude '**/*Console*'
-
-    testLogging {
-        events "passed", "skipped", "failed", "standardOut", "standardError"
-    }
 }
 
 test.finalizedBy jacocoTestReport
