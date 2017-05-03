@@ -28,6 +28,8 @@ pipelines:
                    destination: build
               tabs:
                 checkstyle: build/reports/checkstyle/main.html
+                findbugs_main: build/reports/findbugs/main.html
+                findbugs_test: build/reports/findbugs/test.html
                 test: build/reports/tests/test/index.html
                 jacoco: build/reports/jacoco/test/html/index.html
               tasks:
