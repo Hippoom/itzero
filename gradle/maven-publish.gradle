@@ -12,12 +12,14 @@ publishing {
     }
 
     publications {
-        maven(MavenPublication) {
+        fatjar(MavenPublication) {
             groupId "$project.group"
             artifactId "$project.name"
             version "$gitVersionName"
 
-            from components.java
+            artifact "$buildDir/libs/${project.name}.jar"
         }
     }
 }
+
+publish.dependsOn([])
