@@ -20,6 +20,9 @@ pipelines:
                - build:
                    source: build/version
                    destination: build
+               - build:
+                   source: build/resources/main/META-INF
+                   destination: build/resources/main
                - test:
                    source: build/reports
                    destination: build
@@ -27,6 +30,7 @@ pipelines:
                    source: build/test-results
                    destination: build
               tabs:
+                build_info: build/resources/main/META-INF/build-info.properties
                 checkstyle: build/reports/checkstyle/main.html
                 findbugs_main: build/reports/findbugs/main.html
                 findbugs_test: build/reports/findbugs/test.html
