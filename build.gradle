@@ -1,6 +1,8 @@
 buildscript {
     ext {
         spockVersion = "1.1-groovy-2.4-rc-3"
+        snippetsDir = file('build/generated-snippets')
+        restdocsVersion = '1.2.0.RELEASE'
     }
 
     repositories {
@@ -11,9 +13,10 @@ buildscript {
 }
 
 plugins {
-    id 'org.springframework.boot' version '1.5.2.RELEASE'
+    id 'org.springframework.boot' version '1.5.3.RELEASE'
     id "io.spring.dependency-management" version "1.0.1.RELEASE"
     id "com.gorylenko.gradle-git-properties" version "1.4.17"
+    id "org.asciidoctor.convert" version "1.5.3"
 }
 
 apply plugin: 'idea'
@@ -61,7 +64,9 @@ dependencies {
     testCompile group: 'org.hamcrest', name: 'hamcrest-library', version: '1.3'
     testCompile group: 'org.codehaus.groovy', name: 'groovy-all', version: '2.4.9'
     testCompile group: 'io.rest-assured', name: 'rest-assured', version: '3.0.2'
-
+    asciidoctor "org.springframework.restdocs:spring-restdocs-asciidoctor:${restdocsVersion}"
+    testCompile "org.springframework.restdocs:spring-restdocs-mockmvc:${restdocsVersion}"
+    testCompile "org.springframework.restdocs:spring-restdocs-core:${restdocsVersion}"
 }
 
 test {
@@ -69,9 +74,15 @@ test {
     exclude '**/specs/*'
     exclude '**/*LearningTest*'
     exclude '**/*Console*'
+    outputs.dir snippetsDir
 }
 
-test.finalizedBy jacocoTestReport
+asciidoctor {
+    inputs.dir snippetsDir
+    dependsOn test
+}
+
+test.finalizedBy([asciidoctor, jacocoTestReport])
 
 
 idea {

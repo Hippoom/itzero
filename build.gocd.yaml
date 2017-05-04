@@ -29,6 +29,9 @@ pipelines:
                - test:
                    source: build/test-results
                    destination: build
+               - test:
+                  source: build/asciidoc
+                  destination: build
               tabs:
                 build_info: build/resources/main/META-INF/build-info.properties
                 checkstyle: build/reports/checkstyle/main.html
