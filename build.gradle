@@ -88,6 +88,9 @@ asciidoctor {
 
 test.finalizedBy([asciidoctor, jacocoTestReport])
 
+springBoot {
+    executable = true
+}
 
 idea {
     module {
