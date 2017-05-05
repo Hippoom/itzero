@@ -4,7 +4,11 @@ import io.restassured.RestAssured
 import org.junit.Before
 import org.junit.Test
 
+import java.util.concurrent.Callable
+
 import static io.restassured.RestAssured.given
+import static java.util.concurrent.TimeUnit.SECONDS
+import static org.awaitility.Awaitility.await
 import static org.hamcrest.Matchers.equalTo
 
 class DeploymentSmokeTest {
@@ -17,16 +21,30 @@ class DeploymentSmokeTest {
 
     @Test
     void itShouldBeRunningWithExpectedBuildVersion() {
-        // @formatter:off
-        given().
-            log().all().
-        when().
-            get("/info").
-        then().
-            log().all().
-            body("build.version", equalTo(expectedBuildVersion()))
-        // @formatter:on
 
+        await().
+                atMost(90, SECONDS).pollInterval(10, SECONDS).
+                until(getActualBuildVersion(), equalTo(expectedBuildVersion()))
+    }
+
+    private Callable<String> getActualBuildVersion() {
+        return new Callable<String>() {
+            String call() throws Exception {
+                try {
+                    // @formatter:off
+                    given().
+                        log().all().
+                    when().
+                        get("/info").
+                    then().
+                        log().all().extract().body().jsonPath().getString("build.version")
+                    // @formatter:on
+                } catch (ConnectException e) {
+                    e.printStackTrace()
+                    ""
+                }
+            }
+        }
     }
 
     private String getBaseUri() {
@@ -43,4 +61,5 @@ class DeploymentSmokeTest {
         properties."build.version"
 
     }
+
 }

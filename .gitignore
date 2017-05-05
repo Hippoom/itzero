@@ -9,3 +9,4 @@ build/
 #local
 application-dev.yml
 logs
+/src/test/groovy/itzero/smoke/DeploymentSmokeTest.groovy
