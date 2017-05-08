@@ -44,4 +44,4 @@ pipelines:
                 jacoco: build/reports/jacoco/test/html/index.html
               tasks:
                - script: ./gradlew clean build publish
-               - script: ./scripts/build-test-image.sh
+               - script: ./scripts/build-test-image.sh && ./scripts/push-images.sh
