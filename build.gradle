@@ -90,6 +90,21 @@ test {
     outputs.dir snippetsDir
 }
 
+task smokeTest(type: Test) {
+    // this task will be executed in isolation since all artifacts have been built and deployed
+    dependsOn = []
+
+    include '**/smoke/*'
+
+    outputs.upToDateWhen { false }//force to always rerun
+
+    reports {
+        html {
+            destination = "$buildDir/reports/smoke"
+        }
+    }
+}
+
 asciidoctor {
     inputs.dir snippetsDir
     dependsOn test
